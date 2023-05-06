@@ -1,0 +1,7 @@
+plugins {
+    id 'org.bytedeco.gradle-javacpp-build' version "1.5.8" apply false
+}
+
+group = 'dev.atsushieno'
+version = '0.1.0-SNAPSHOT'
+
