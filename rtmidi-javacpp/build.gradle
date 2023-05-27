@@ -26,14 +26,14 @@ java {
 }
 
 dependencies {
-    api "org.bytedeco:javacpp:1.5.8"
-    javacppPlatform "org.bytedeco:javacpp-platform:1.5.8"
-    javacppPlatform "$targetArtifactName:$version:linux-x86"
+    api "org.bytedeco:javacpp:$javacppVersion"
+    javacppPlatform "org.bytedeco:javacpp-platform:$javacppVersion"
     javacppPlatform "$targetArtifactName:$version:linux-x86_64"
+    javacppPlatform "$targetArtifactName:$version:linux-arm64"
     javacppPlatform "$targetArtifactName:$version:macosx-x86_64"
     javacppPlatform "$targetArtifactName:$version:macosx-arm64"
-    javacppPlatform "$targetArtifactName:$version:windows-x86"
     javacppPlatform "$targetArtifactName:$version:windows-x86_64"
+    javacppPlatform "$targetArtifactName:$version:windows-arm64"
     testRuntimeOnly "org.bytedeco:javacpp:1.5.8:$javacppPlatform"
     testImplementation platform('org.junit:junit-bom:5.9.1')
     //testImplementation 'org.junit.jupiter:junit-jupiter'
@@ -112,7 +112,7 @@ check.dependsOn(japicmp)
 
 def pomClosure = {
     name.set('rtmidi-javacpp')
-    description.set('rtmidi JNA binding with prebuilt binaries')
+    delegate.description.set('rtmidi JNA binding with prebuilt binaries')
     url.set('https://github.com/atsushieno/rtmidi-jna')
     scm {
         url.set('https://github.com/atsushieno/rtmidi-jna')

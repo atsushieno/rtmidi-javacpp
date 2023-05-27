@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'org.bytedeco.gradle-javacpp-platform' version '1.5.8'
 }
 
 group = 'dev.atsushieno'
@@ -13,8 +14,8 @@ repositories {
 dependencies {
     // IDEA is not capable of supporting autocompleting generated rtmidi-javacpp API...
     //implementation project(':rtmidi-javacpp')
-    implementation 'dev.atsushieno:rtmidi-javacpp:0.1.0'
-    //implementation 'dev.atsushieno:rtmidi-javacpp-platform:0.1.0'
+    //implementation 'dev.atsushieno:rtmidi-javacpp:0.1.0'
+    implementation 'dev.atsushieno:rtmidi-javacpp-platform:0.1.0'
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
