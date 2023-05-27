@@ -78,12 +78,14 @@ javadoc {
     //from javadoc.destinationDir
 }
 
-task javadocJar(type: Jar, dependsOn: javadoc) {
+tasks.register('javadocJar', Jar) {
+    dependsOn javadoc
     classifier = 'javadoc'
     from javadoc.destinationDir
 }
 
-task sourcesJar(type: Jar, dependsOn: classes) {
+tasks.register('sourcesJar', Jar) {
+    dependsOn classes
     classifier = 'sources'
     from sourceSets.main.allSource
 }
@@ -108,30 +110,52 @@ tasks.register("japicmp", me.champeau.gradle.japicmp.JapicmpTask) {
 check.dependsOn(japicmp)
 */
 
+def pomClosure = {
+    name.set('rtmidi-javacpp')
+    description.set('rtmidi JNA binding with prebuilt binaries')
+    url.set('https://github.com/atsushieno/rtmidi-jna')
+    scm {
+        url.set('https://github.com/atsushieno/rtmidi-jna')
+    }
+    licenses {
+        license {
+            name.set('the MIT License')
+            url.set('https://github.com/atsushieno/rtmidi-jna/blob/main/LICENSE')
+        }
+    }
+    developers {
+        developer {
+            id.set('atsushieno')
+            name.set('Atsushi Eno')
+            email.set('atsushieno@gmail.com')
+        }
+    }
+}
+
 // publisher settings
 publishing {
-    publications.all {
-        from components.java
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifacts = [jar, javacppJar, javadocJar, sourcesJar] + javacppBuild.existingArtifacts(configurations.javacppPlatform)
+            pom pomClosure
+        }
+        mavenJavacppPlatform(MavenPublication) {
+            groupId project.group
+            artifactId project.name + "-platform"
+            artifacts = [javacppPlatformJar, javacppPlatformJavadocJar, javacppPlatformSourcesJar]
+            pom pomClosure
+            pom.withXml javacppBuild.xmlAction(configurations.javacppPlatform)
+        }
+    }
 
-        pom {
-            name.set('rtmidi-jna')
-            description.set('rtmidi JNA binding with prebuilt binaries')
-            url.set('https://github.com/atsushieno/rtmidi-jna')
-            scm {
-                url.set('https://github.com/atsushieno/rtmidi-jna')
-            }
-            licenses {
-                license {
-                    name.set('the MIT License')
-                    url.set('https://github.com/atsushieno/rtmidi-jna/blob/main/LICENSE')
-                }
-            }
-            developers {
-                developer {
-                    id.set('atsushieno')
-                    name.set('Atsushi Eno')
-                    email.set('atsushieno@gmail.com')
-                }
+    repositories {
+        maven {
+            name = "OSSRH"
+            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+            credentials {
+                username = ossrhUsername
+                password = ossrhPassword
             }
         }
     }
@@ -139,5 +163,3 @@ publishing {
 
 // keep it as is. It is replaced by CI release builds
 signing {}
-
-apply from: "${rootDir}/publish-module.gradle"
