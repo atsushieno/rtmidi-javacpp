@@ -3,3 +3,4 @@ rootProject.name = 'rtmidi-javacpp'
 include ':rtmidi-javacpp'
 include ':app'
 
+gradle.rootProject { ext.javacppVersion = '1.5.8' }

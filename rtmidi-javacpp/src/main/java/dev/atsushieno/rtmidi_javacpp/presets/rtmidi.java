@@ -6,7 +6,7 @@ import org.bytedeco.javacpp.tools.*;
 
 @Properties(
     value = {
-        @Platform(include = "<rtmidi/rtmidi_c.h>", link = "rtmidi@.6#"),
+        @Platform(include = "<rtmidi/rtmidi_c.h>", link = "rtmidi#"),
         @Platform(value = "windows", link = "rtmidi#")
     },
     target = "dev.atsushieno.rtmidi_javacpp",
@@ -17,7 +17,7 @@ public class rtmidi implements InfoMapper {
 
     public void map(InfoMap infoMap) {
        infoMap
-               .put(new Info("RTMIDIAPI").cppTypes().annotations())
+               .put(new Info("RTMIDIAPI").cppText("#define RTMIDIAPI"))
                .put(new Info("RtMidiPtr").pointerTypes("@Cast(\"RtMidiPtr*\") Pointer"))
                .put(new Info("RtMidiInPtr").pointerTypes("@Cast(\"RtMidiInPtr*\") Pointer"))
                .put(new Info("RtMidiOutPtr").pointerTypes("@Cast(\"RtMidiOutPtr*\") Pointer"))

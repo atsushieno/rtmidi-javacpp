@@ -5,3 +5,4 @@ plugins {
 group = 'dev.atsushieno'
 version = '0.1.0-SNAPSHOT'
 
+apply from: "${rootDir}/publish-root.gradle"
