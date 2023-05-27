@@ -6,13 +6,10 @@ plugins {
 }
 
 group = 'dev.atsushieno'
-version = '0.1.0-SNAPSHOT'
-
-ext {
-    //javacppPlatform = 'linux-x86_64,linux-arm64,macosx-x86_64,macosx-arm64,windows-x86_64,windows-arm64' // defaults to Loader.getPlatform()
-}
+version = '0.1.0'
 
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
@@ -21,7 +18,7 @@ ext.targetArtifactName = "dev.atsushieno:rtmidi-javacpp"
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
-    api "org.bytedeco:javacpp:+"
+    api "org.bytedeco:javacpp:1.5.8"
     javacppPlatform "org.bytedeco:javacpp-platform:1.5.8"
     javacppPlatform "$targetArtifactName:$version:linux-x86"
     javacppPlatform "$targetArtifactName:$version:linux-x86_64"
@@ -36,7 +33,7 @@ test {
     useJUnitPlatform()
 }
 
-tasks.withType(org.bytedeco.gradle.javacpp.BuildTask) {
+tasks.withType(org.bytedeco.gradle.javacpp.BuildTask).configureEach {
     includePath = ["$buildDir/$javacppPlatform/include"]
     linkPath = ["$buildDir/$javacppPlatform/lib"]
 }
@@ -70,13 +67,13 @@ javadoc {
     failOnError = false
 }
 
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
+tasks.register('javadocJar', Jar) {
+    dependsOn javadoc
     from javadoc.destinationDir
 }
 
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
+tasks.register('sourcesJar', Jar) {
+    dependsOn classes
     from sourceSets.main.allSource
 }
 

@@ -11,6 +11,10 @@ PWD=`pwd`
 
 pushd .
 cd ../../../external/rtmidi
+if [ ! -f .patch.stamp ] ; then
+    patch -i ../../workaround-javacpp-code-generator-issue.patch -p1
+    touch .patch.stamp
+fi
 cmake -B build-$PLATFORM
 cmake --build build-$PLATFORM
 echo "PWD: $PWD"

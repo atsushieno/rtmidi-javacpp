@@ -1,0 +1,26 @@
+diff --git a/rtmidi_c.h b/rtmidi_c.h
+index 82db105..a5585e7 100644
+--- a/rtmidi_c.h
++++ b/rtmidi_c.h
+@@ -85,9 +85,9 @@ enum RtMidiErrorType {
+ 
+ /*! \brief The type of a RtMidi callback function.
+  *
+- * \param timeStamp   The time at which the message has been received.
+- * \param message     The midi message.
+- * \param userData    Additional user data for the callback.
++ * param timeStamp   The time at which the message has been received.
++ * param message     The midi message.
++ * param userData    Additional user data for the callback.
+  *
+  * See \ref RtMidiIn::RtMidiCallback.
+  */
+@@ -129,7 +129,7 @@ RTMIDIAPI void rtmidi_error (enum RtMidiErrorType type, const char* errorString)
+ 
+ /*! \brief Open a MIDI port.
+  *
+- * \param port      Must be greater than 0
++ * \param portNumber      Must be greater than 0
+  * \param portName  Name for the application port.
+  *
+  * See RtMidi::openPort().

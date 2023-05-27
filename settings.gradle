@@ -1,4 +1,5 @@
 rootProject.name = 'rtmidi-javacpp'
 
-include 'rtmidi-javacpp'
+include ':rtmidi-javacpp'
+include ':app'
 
