@@ -1,5 +1,5 @@
 plugins {
-    id 'org.bytedeco.gradle-javacpp-build' version "1.5.8" apply false
+    id 'java-library'
 }
 
 group = 'dev.atsushieno'
