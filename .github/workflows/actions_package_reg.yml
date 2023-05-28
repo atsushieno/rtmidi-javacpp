@@ -1,9 +1,8 @@
 name: 'build'
 
 on:
-  push:
-  pull_request:
-  workflow_dispatch:
+  create:
+    tags:
 
 jobs:
   build_jar:
