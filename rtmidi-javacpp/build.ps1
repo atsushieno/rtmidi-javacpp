@@ -6,11 +6,15 @@ $DIST = (Get-Location).Path
 
 $ErrorActionPreference = "Stop"
 
-$PWD = (Get-Location).Path
+$ScriptDir = Split-Path -Parent $PSCommandPath
 
-Set-Location "$PWD\..\..\..\external\rtmidi"
+echo "DIST: $DIST"
+echo "ScriptDir: $ScriptDir"
+
+dir
+Set-Location "$ScriptDir\..\external\rtmidi"
 if (-not (Test-Path .patch.stamp)) {
-    patch -i $PWD\..\..\workaround-javacpp-code-generator-issue.patch -p1
+    patch -i $ScriptDir\..\workaround-javacpp-code-generator-issue.patch -p1
     New-Item -ItemType File -Name .patch.stamp
 }
 cmake -B "build-$PLATFORM"
