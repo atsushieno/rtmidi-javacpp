@@ -8,9 +8,9 @@ $ErrorActionPreference = "Stop"
 
 $PWD = (Get-Location).Path
 
-Set-Location "..\..\..\external\rtmidi"
+Set-Location "$PWD\..\..\..\external\rtmidi"
 if (-not (Test-Path .patch.stamp)) {
-    patch -i ..\..\workaround-javacpp-code-generator-issue.patch -p1
+    patch -i $PWD\..\..\workaround-javacpp-code-generator-issue.patch -p1
     New-Item -ItemType File -Name .patch.stamp
 }
 cmake -B "build-$PLATFORM"
