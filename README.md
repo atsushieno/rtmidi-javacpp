@@ -6,6 +6,8 @@ I have atsushieno/rtmidi-jna, but it is getting impossible to maintain it withou
 
 ## Current status
 
+Currently we have binary releases for Linux and Mac. Once Windows build is unf*cked, we can publish Windows binary too (but do not expect any work from @atsushieno, I'm tired of it - I leave it to whoever loves Windows).
+
 At this state I'm not sure if we can ever get a really working version of this binding that does not fail to resolve *everywhere*, so take this project as totally experimental.
 
 So far it builds and usable IF there is a corresponding platform library package available somewhere on a Maven repository (such as `mavenCentral()`).

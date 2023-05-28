@@ -32,8 +32,8 @@ dependencies {
     javacppPlatform "$targetArtifactName:$version:linux-arm64"
     javacppPlatform "$targetArtifactName:$version:macosx-x86_64"
     javacppPlatform "$targetArtifactName:$version:macosx-arm64"
-    javacppPlatform "$targetArtifactName:$version:windows-x86_64"
-    javacppPlatform "$targetArtifactName:$version:windows-arm64"
+    //javacppPlatform "$targetArtifactName:$version:windows-x86_64"
+    //javacppPlatform "$targetArtifactName:$version:windows-arm64"
     testRuntimeOnly "org.bytedeco:javacpp:1.5.8:$javacppPlatform"
     testImplementation platform('org.junit:junit-bom:5.9.1')
     //testImplementation 'org.junit.jupiter:junit-jupiter'
