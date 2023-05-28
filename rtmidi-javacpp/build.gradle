@@ -51,7 +51,7 @@ tasks.withType(org.bytedeco.gradle.javacpp.BuildTask).configureEach {
 if(System.properties["os.name"].startsWith("Windows")) {
     javacppBuildCommand { buildCommand = ['powershell', 'build.ps1'] }
 } else {
-    javacppBuildCommand { buildCommand = ['bash', 'build.sh'] }
+    javacppBuildCommand { buildCommand = ['bash', '-File', 'build.sh'] }
 }
 
 javacppBuildParser {
