@@ -48,8 +48,10 @@ tasks.withType(org.bytedeco.gradle.javacpp.BuildTask).configureEach {
     linkPath = ["$buildDir/$javacppPlatform/lib"]
 }
 
-javacppBuildCommand {
-    buildCommand = ['bash', 'build.sh']
+if(System.properties["os.name"].startsWith("Windows")) {
+    javacppBuildCommand { buildCommand = ['powershell', 'build.ps'] }
+} else {
+    javacppBuildCommand { buildCommand = ['bash', 'build.sh'] }
 }
 
 javacppBuildParser {
