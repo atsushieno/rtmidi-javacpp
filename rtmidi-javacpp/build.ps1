@@ -1,5 +1,5 @@
 
-mkdir "build\$PLATFORM"
+New-Item -ItemType Directory -Force -Path "build\$PLATFORM"
 Set-Location "build\$PLATFORM"
 
 $DIST = (Get-Location).Path
