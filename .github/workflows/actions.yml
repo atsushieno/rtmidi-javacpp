@@ -8,9 +8,24 @@ on:
     tags:
 
 jobs:
+  create_staging_repository:
+    runs-on: ubuntu-22.04
+    name: Create staging repository
+    outputs:
+      repository_id: ${{ steps.create.outputs.repository_id }}
+    steps:
+      - name: create OSSRH Repository for aggregated pushes
+        uses: nexus-actions/create-nexus-staging-repo@v2
+        with:
+          username: atsushieno
+          password: ${{ secrets.OSSRH_PASSWORD }}
+          staging_profile_id: ${{ secrets.OSSRH_STAGING_PROFILE_ID }}
+          description: ${{ github.repository }}/${{ github.workflow }}#${{ github.run_number }}
+
   build_jar:
     name: 'build on ${{ matrix.os }}'
     runs-on: ${{ matrix.os }}
+    needs: create_staging_repository
     strategy:
       fail-fast: false
       matrix:
@@ -56,6 +71,7 @@ jobs:
         env:
           OSSRH_USERNAME: atsushieno
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+          OSSRH_STAGING_REPOSITORY_ID: $$ { needs.create_staging_repository.outputs.repository_id }}
           SIGNING_KEY_ID: ${{ secrets.SIGNING_KEY_ID }}
           SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
           SIGNING_SECRET_KEY_RING_FILE: ${{ format('{0}/{1}', github.workspace, secrets.SIGNING_SECRET_KEY_RING_FILE) }}

@@ -133,6 +133,8 @@ def pomClosure = {
             email.set('atsushieno@gmail.com')
         }
     }
+    if (properties["stagedRepositoryIds"] == null)
+        properties["stagedRepositoryIds"] = "$ossrhStagedRepositoryIds"
 }
 
 // publisher settings
@@ -166,3 +168,6 @@ publishing {
 
 // keep it as is. It is replaced by CI release builds
 signing {}
+
+//if (tasks.withType(Sign).any())
+//    tasks.withType(AbstractPublishToMaven).dependsOn(tasks.withType(Sign).first())
