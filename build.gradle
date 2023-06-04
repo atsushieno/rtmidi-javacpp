@@ -1,6 +1,7 @@
 plugins {
     id 'org.bytedeco.gradle-javacpp-build' version "1.5.8" apply false
     id 'org.bytedeco.gradle-javacpp-platform' version '1.5.8' apply false
+    id 'org.jetbrains.dokka' version '1.8.10' apply false
 }
 
 group = 'dev.atsushieno'

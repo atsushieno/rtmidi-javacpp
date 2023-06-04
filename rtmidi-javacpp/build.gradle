@@ -3,6 +3,7 @@ plugins {
     id 'org.bytedeco.gradle-javacpp-build'
     id 'maven-publish'
     id 'signing'
+    id 'org.jetbrains.dokka'
 }
 
 group = 'dev.atsushieno'
