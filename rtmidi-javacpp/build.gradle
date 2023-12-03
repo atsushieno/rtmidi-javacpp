@@ -22,7 +22,7 @@ configurations {
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(8)
+        languageVersion = JavaLanguageVersion.of(11)
     }
 }
 
@@ -115,15 +115,15 @@ check.dependsOn(japicmp)
 
 def pomClosure = {
     name.set('rtmidi-javacpp')
-    delegate.description.set('rtmidi JNA binding with prebuilt binaries')
-    url.set('https://github.com/atsushieno/rtmidi-jna')
+    delegate.description.set('rtmidi JavaCPP binding with prebuilt binaries')
+    url.set('https://github.com/atsushieno/rtmidi-javacpp')
     scm {
-        url.set('https://github.com/atsushieno/rtmidi-jna')
+        url.set('https://github.com/atsushieno/rtmidi-javacpp')
     }
     licenses {
         license {
             name.set('the MIT License')
-            url.set('https://github.com/atsushieno/rtmidi-jna/blob/main/LICENSE')
+            url.set('https://github.com/atsushieno/rtmidi-javacpp/blob/main/LICENSE')
         }
     }
     developers {
