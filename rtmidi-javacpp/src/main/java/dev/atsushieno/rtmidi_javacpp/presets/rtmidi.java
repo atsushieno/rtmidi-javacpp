@@ -21,6 +21,7 @@ public class rtmidi implements InfoMapper {
                .put(new Info("RtMidiPtr").pointerTypes("@Cast(\"RtMidiPtr*\") Pointer"))
                .put(new Info("RtMidiInPtr").pointerTypes("@Cast(\"RtMidiInPtr*\") Pointer"))
                .put(new Info("RtMidiOutPtr").pointerTypes("@Cast(\"RtMidiOutPtr*\") Pointer"))
+               .put(new Info("rtmidi_error").skip())
        ;
     }
 }
