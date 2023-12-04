@@ -24,6 +24,5 @@ cmake --build "build-$PLATFORM"
 New-Item -ItemType Directory -Path "$DIST\include\rtmidi" -Force
 New-Item -ItemType Directory -Path "$DIST\lib" -Force
 Copy "*.h" "$DIST\include\rtmidi"
-Copy "build-$PLATFORM\Debug\*.dll" "$DIST\lib"
-Copy "build-$PLATFORM\Debug\*.lib" "$DIST\lib"
+Copy "build-$PLATFORM\Debug\rtmidi.*" "$DIST\lib"
 
