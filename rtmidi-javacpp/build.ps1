@@ -17,7 +17,7 @@ if (-not (Test-Path .patch.stamp)) {
     patch -i $ScriptDir\..\workaround-javacpp-code-generator-issue.patch -p1
     New-Item -ItemType File -Name .patch.stamp
 }
-cmake -B "build-$PLATFORM"
+cmake -B "build-$PLATFORM" -DCMAKE_BUILD_TYPE=Release
 cmake --build "build-$PLATFORM"
 cmake --install "build-$PLATFORM" --prefix $DIST
 
