@@ -1,6 +1,6 @@
 
-New-Item -ItemType Directory -Force -Path "build\$PLATFORM"
-Set-Location "build\$PLATFORM"
+New-Item -ItemType Directory -Force -Path "build\$Env:PLATFORM"
+Set-Location "build\$Env:PLATFORM"
 
 $DIST = (Get-Location).Path
 
@@ -19,5 +19,9 @@ if (-not (Test-Path .patch.stamp)) {
 }
 cmake -B "build-$PLATFORM" -DCMAKE_BUILD_TYPE=Release
 cmake --build "build-$PLATFORM"
-cmake --install "build-$PLATFORM" --prefix $DIST
 
+#cmake --install "build-$PLATFORM" --prefix $DIST
+New-Item -ItemType Directory -Path "$DIST\include\rtmidi" -Force
+New-Item -ItemType Directory -Path "$DIST\lib" -Force
+Copy "*.h" "$DIST\include\rtmidi"
+Copy "build-$PLATFORM\Debug\*.dll" "$DIST\lib"
