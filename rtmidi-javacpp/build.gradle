@@ -7,7 +7,7 @@ plugins {
 }
 
 group = 'dev.atsushieno'
-version = '0.1.0'
+version = '0.1.1'
 
 repositories {
     mavenLocal()
@@ -47,6 +47,7 @@ test {
 tasks.withType(org.bytedeco.gradle.javacpp.BuildTask).configureEach {
     includePath = ["$buildDir/$javacppPlatform/include"]
     linkPath = ["$buildDir/$javacppPlatform/lib"]
+    copyLibs true
 }
 
 if(System.properties["os.name"].startsWith("Windows")) {

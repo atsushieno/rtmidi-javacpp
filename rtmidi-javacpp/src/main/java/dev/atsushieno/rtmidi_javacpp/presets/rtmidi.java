@@ -6,11 +6,12 @@ import org.bytedeco.javacpp.tools.*;
 
 @Properties(
     value = {
-        @Platform(include = "<rtmidi/rtmidi_c.h>", link = "rtmidi#"),
+        @Platform(value = "linux", include = "<rtmidi/rtmidi_c.h>", link = "rtmidi#"),
+        @Platform(value = "macosx", include = "<rtmidi/rtmidi_c.h>", link = "rtmidi.7#"),
         @Platform(value = "windows", link = "rtmidi#")
     },
     target = "dev.atsushieno.rtmidi_javacpp",
-    global = "dev.atsushieno.rtmidi_javacpp.global.rtmidi"
+    global = "dev.atsushieno.rtmidi_javacpp.global.RtMidi"
 )
 public class rtmidi implements InfoMapper {
     static { Loader.checkVersion("dev.atsushieno", "rtmidi_javacpp"); }
