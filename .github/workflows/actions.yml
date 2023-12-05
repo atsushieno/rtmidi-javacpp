@@ -55,11 +55,17 @@ jobs:
           WORKSPACE: ${{ github.workspace }}
           GPG_KEY_CONTENTS: ${{ secrets.GPG_KEY_CONTENTS }}
           SIGNING_SECRET_KEY_RING_FILE: ${{ secrets.SIGNING_SECRET_KEY_RING_FILE }}
+      - name: rewrite build.gradle to require signing on Windows
+        if: startsWith(github.ref, 'refs/tags/') && startsWith(matrix.os, 'windows')
+        run: |
+          (Get-Content -ReadCount 0 rtmidi-javacpp\build.gradle) |
+            -replace "signing {}", "signing { sign(publishing.publications) }" |
+              Set-Content rtmidi-javacpp\build.gradle -WhatIf
       - name: rewrite build.gradle to require signing on awkward OS
-        if: startsWith(github.ref, 'refs/tags/') && matrix.os == 'macos-12'
+        if: startsWith(github.ref, 'refs/tags/') && startsWith(matrix.os, 'macos')
         run: sed -i "" "s/signing {}/signing { sign(publishing.publications) }/" rtmidi-javacpp/build.gradle
       - name: rewrite build.gradle to require signing on standard OS
-        if: startsWith(github.ref, 'refs/tags/') && matrix.os != 'macos-12'
+        if: startsWith(github.ref, 'refs/tags/') && startsWith(matrix.os, 'ubuntu')
         run: sed -i "s/signing {}/signing { sign(publishing.publications) }/" rtmidi-javacpp/build.gradle
 
       # build or publish, depending on whether it is for release tags or not
