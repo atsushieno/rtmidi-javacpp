@@ -23,7 +23,7 @@ cmake --install build-$PLATFORM --prefix $DIST
 if [ -e $DIST/lib/librtmidi.7.0.0.dylib ]; then
     mv $DIST/lib/librtmidi.7.0.0.dylib $DIST/lib/librtmidi.7.dylib # un-symlink
 else
-    mv $DIST/lib/librtmidi.7.0.0.so $DIST/lib/librtmidi.so # un-symlink
+    mv $DIST/lib/librtmidi.so.7.0.0 $DIST/lib/librtmidi.so # un-symlink
 fi
 
 popd
