@@ -15,6 +15,7 @@ jobs:
       - name: create OSSRH Repository for aggregated pushes (ONLY FOR RELEASES)
         if: startsWith(github.ref, 'refs/tags/')
         run: |
+          echo "repository_id=`curl -s --request POST -u "${{ secrets.OSSRH_USERNAME}}:${{ secrets.OSSRH_PASSWORD }}"   --url https://oss.sonatype.org/service/local/staging/profiles/"${{ secrets.OSSRH_STAGING_PROFILE_ID }}"/start    --header 'Accept: application/json'    --header 'Content-Type: application/json'    --data '{ "data": {"description" : "'"${{ github.repository }}/${{ github.workflow }}#${{ github.run_number }}"'"} }'`"
           echo "repository_id=`curl -s --request POST -u "${{ secrets.OSSRH_USERNAME}}:${{ secrets.OSSRH_PASSWORD }}"   --url https://oss.sonatype.org/service/local/staging/profiles/"${{ secrets.OSSRH_STAGING_PROFILE_ID }}"/start    --header 'Accept: application/json'    --header 'Content-Type: application/json'    --data '{ "data": {"description" : "'"${{ github.repository }}/${{ github.workflow }}#${{ github.run_number }}"'"} }' | jq -r '.data.stagedRepositoryId' `" >> $GITHUB_OUTPUT
 
   build_jar:
@@ -54,7 +55,7 @@ jobs:
       - name: setup gpg necessities on Windows
         if: startsWith(github.ref, 'refs/tags/') && startsWith(matrix.os, 'windows')
         run: |
-          [System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String("$Env:GPG_KEY_CONTENTS")) | Out-File '$Env:WORKSPACE/$Env:SIGNING_SECRET_KEY_RING_FILE'
+          [System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String("${{ secrets.GPG_KEY_CONTENTS }}")) | Out-File '${{ env.WORKSPACE }}/${{ secrets.SIGNING_SECRET_KEY_RING_FILE }}'
         env:
           WORKSPACE: ${{ github.workspace }}
           GPG_KEY_CONTENTS: ${{ secrets.GPG_KEY_CONTENTS }}
