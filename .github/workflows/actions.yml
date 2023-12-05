@@ -21,7 +21,7 @@ jobs:
             --header 'Accept: application/json'
             --header 'Content-Type: application/json'
             --data '{ "data": {"description" : "'"${{ github.repository }}/${{ github.workflow }}#${{ github.run_number }}"'"} }'
-          ` >> $GITHUB_OUTPUT
+          `" >> $GITHUB_OUTPUT
 
   build_jar:
     name: 'build on ${{ matrix.os }}'
