@@ -135,7 +135,7 @@ def pomClosure = {
         }
     }
     if (properties["stagedRepositoryIds"] == null)
-        properties["stagedRepositoryIds"] = "$ossrhStagedRepositoryIds"
+        properties["stagedRepositoryIds"] = "$ossrhStagingRepositoryId"
 }
 
 // publisher settings
