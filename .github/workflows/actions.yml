@@ -96,7 +96,7 @@ jobs:
       # Update API reference,
       - name: deploy to GitHub Pages
         if: success() && startsWith(github.ref, 'refs/tags/') && startsWith(matrix.os, 'ubuntu')
-        uses: JamesIves/github-pages-deploy-action@4.1.2
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: rtmidi-javacpp/build/dokka/html
