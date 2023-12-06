@@ -14,8 +14,13 @@ jobs:
     steps:
       - name: create OSSRH Repository for aggregated pushes (ONLY FOR RELEASES)
         if: startsWith(github.ref, 'refs/tags/')
-        run: |
-          echo "repository_id=`curl -s --request POST -u "${{ secrets.OSSRH_USERNAME}}:${{ secrets.OSSRH_PASSWORD }}"   --url https://s01.oss.sonatype.org/service/local/staging/profiles/"${{ secrets.OSSRH_STAGING_PROFILE_ID }}"/start    --header 'Accept: application/json'    --header 'Content-Type: application/json'    --data '{ "data": {"description" : "'"${{ github.repository }}/${{ github.workflow }}#${{ github.run_number }}"'"} }' | jq -r '.data.stagedRepositoryId' `" >> $GITHUB_OUTPUT
+        uses: nexus-actions/create-nexus-staging-repo@v1.3
+        with:
+          username: ${{ secrets.OSSRH_USERNAME }}
+          password: ${{ secrets.OSSRH_PASSWORD }}
+          staging_profile_id: ${{ secrets.OSSRH_STAGING_PROFILE_ID }}
+          description: ${{ github.repository }}/${{ github.workflow }}#${{ github.run_number }}
+          base_url: https://s01.oss.sonatype.org/service/local/
 
   build_jar:
     name: 'build on ${{ matrix.os }}'
