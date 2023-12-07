@@ -131,6 +131,9 @@ def pomClosure = {
 // publisher settings
 publishing {
     publications {
+        if (!rootDir.list().contains("rtmidi-javacpp"))
+            return
+
         mavenJava(MavenPublication) {
             from components.java
             artifacts = [jar, javacppJar, javadocJar, sourcesJar] + javacppBuild.existingArtifacts(configurations.javacppPlatform)
