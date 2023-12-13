@@ -45,7 +45,7 @@ jobs:
         if: matrix.os == 'windows-latest'
         uses: ilammy/msvc-dev-cmd@v1
       - name: set up JDK 17
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: '17'
@@ -87,11 +87,17 @@ jobs:
           SIGNING_KEY_ID: ${{ secrets.SIGNING_KEY_ID }}
           SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
           SIGNING_SECRET_KEY_RING_FILE: ${{ format('{0}/{1}', github.workspace, secrets.SIGNING_SECRET_KEY_RING_FILE) }}
-      - name: upload artifact - Jar
-        if: success()
-        uses: actions/upload-artifact@v2
+      - name: upload artifact - Jar - on Windows
+        if: success() && startsWith(matrix.os, 'windows')
+        uses: actions/upload-artifact@v3
         with:
-          name: rtmidi-javacpp-jars
+          name: rtmidi-javacpp-jars-Windows
+          path: rtmidi-javacpp/build/libs/*windows*.jar
+      - name: upload artifact - Jar - on non-Windows
+        if: success() && !startsWith(matrix.os, 'windows')
+        uses: actions/upload-artifact@v3
+        with:
+          name: rtmidi-javacpp-jars-non-Windows
           path: rtmidi-javacpp/build/libs/*.jar
       # Update API reference,
       - name: deploy to GitHub Pages
