@@ -95,7 +95,8 @@ jobs:
           path: rtmidi-javacpp/build/libs/*.jar
       # Update API reference,
       - name: deploy to GitHub Pages
-        if: success() && startsWith(github.ref, 'refs/tags/') && startsWith(matrix.os, 'ubuntu')
+        # FIXME: enable it again once it's working again
+        if: false # success() && startsWith(github.ref, 'refs/tags/') && startsWith(matrix.os, 'ubuntu')
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
