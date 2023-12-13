@@ -89,7 +89,7 @@ jobs:
           SIGNING_SECRET_KEY_RING_FILE: ${{ format('{0}/{1}', github.workspace, secrets.SIGNING_SECRET_KEY_RING_FILE) }}
       - name: upload artifact - Jar
         if: success()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: rtmidi-javacpp-jars
           path: rtmidi-javacpp/build/libs/*.jar
