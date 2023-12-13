@@ -31,3 +31,6 @@ dir
 
 echo "In include Directory:"
 dir "$DIST\include\rtmidi"
+
+echo "In Debug Directory:"
+dir "build-$PLATFORM\Debug"
