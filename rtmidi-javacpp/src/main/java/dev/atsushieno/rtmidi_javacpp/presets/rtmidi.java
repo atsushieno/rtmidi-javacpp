@@ -8,7 +8,7 @@ import org.bytedeco.javacpp.tools.*;
     value = {
         @Platform(value = "linux", include = "<rtmidi/rtmidi_c.h>", link = "rtmidi#"),
         @Platform(value = "macosx", include = "<rtmidi/rtmidi_c.h>", link = "rtmidi.7#"),
-        @Platform(value = "windows", link = "rtmidi#")
+        @Platform(value = "windows", include = "<rtmidi/rtmidi_c.h>", link = "rtmidi#")
     },
     target = "dev.atsushieno.rtmidi_javacpp",
     global = "dev.atsushieno.rtmidi_javacpp.global.RtMidi"
