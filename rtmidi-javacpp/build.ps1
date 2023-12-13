@@ -26,3 +26,8 @@ New-Item -ItemType Directory -Path "$DIST\lib" -Force
 Copy "*.h" "$DIST\include\rtmidi"
 Copy "build-$PLATFORM\Debug\rtmidi.*" "$DIST\lib"
 
+echo "In Current Directory:"
+dir
+
+echo "In include Directory:"
+dir "$DIST\include\rtmidi"
