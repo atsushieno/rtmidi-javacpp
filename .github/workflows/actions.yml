@@ -92,7 +92,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: rtmidi-javacpp-jars-Windows
-          path: rtmidi-javacpp/build/libs/*windows*.jar
+          path: rtmidi-javacpp/build/libs/*.jar
       - name: upload artifact - Jar - on non-Windows
         if: success() && !startsWith(matrix.os, 'windows')
         uses: actions/upload-artifact@v3
