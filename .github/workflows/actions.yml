@@ -79,7 +79,7 @@ jobs:
       - name: publish (ONLY FOR NEW RELEASE TAGS)
         if: startsWith(github.ref, 'refs/tags/')
         run:
-          ./gradlew --warning-mode all build dokkaHtml publish
+          ./gradlew --warning-mode all build publish
         env:
           OSSRH_USERNAME: atsushieno
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
@@ -99,4 +99,4 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: rtmidi-javacpp/build/dokka/html
+          folder: rtmidi-javacpp/build/docs/javadoc
