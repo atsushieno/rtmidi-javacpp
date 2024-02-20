@@ -7,10 +7,6 @@ plugins {
 
 ext.targetArtifactName = "dev.atsushieno:rtmidi-javacpp"
 
-configurations {
-    baseline
-}
-
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(11)
@@ -38,7 +34,6 @@ test {
 tasks.withType(org.bytedeco.gradle.javacpp.BuildTask).configureEach {
     includePath = ["$buildDir/$javacppPlatform/include"]
     linkPath = ["$buildDir/$javacppPlatform/lib"]
-    copyLibs true
 }
 
 if(System.properties["os.name"].startsWith("Windows")) {
@@ -74,21 +69,9 @@ javadoc {
     //from javadoc.destinationDir
 }
 
-tasks.register('javadocJar', Jar) {
-    dependsOn javadoc
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-tasks.register('sourcesJar', Jar) {
-    dependsOn classes
-    classifier = 'sources'
-    from sourceSets.main.allSource
-}
-
-artifacts {
-    archives javadocJar
-    archives sourcesJar
+java {
+    withJavadocJar()
+    withSourcesJar()
 }
 
 /*
@@ -131,9 +114,6 @@ def pomClosure = {
 // publisher settings
 publishing {
     publications {
-        if (!rootDir.list().contains("rtmidi-javacpp"))
-            return
-
         mavenJava(MavenPublication) {
             from components.java
             artifacts = [jar, javacppJar, javadocJar, sourcesJar] + javacppBuild.existingArtifacts(configurations.javacppPlatform)
@@ -159,6 +139,11 @@ publishing {
         }
     }
 }
+
+tasks.findByName('javacppBuildCommand').dependsOn('javacppPomProperties')
+tasks.findByName('javacppBuildCommand').dependsOn('sourcesJar')
+tasks.findByName('javacppBuildCommand').dependsOn('generatePomFileForMavenJavaPublication')
+tasks.findByName('javacppBuildCommand').dependsOn('generatePomFileForMavenJavacppPlatformPublication')
 
 // keep it as is. It is replaced by CI release builds
 signing {}

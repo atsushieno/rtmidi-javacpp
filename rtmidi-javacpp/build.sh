@@ -15,15 +15,10 @@ if [ ! -f .patch.stamp ] ; then
     patch -i ../../workaround-javacpp-code-generator-issue.patch -p1
     touch .patch.stamp
 fi
-cmake -B build-$PLATFORM
+cmake -B build-$PLATFORM -DBUILD_SHARED_LIBS=OFF -DCMAKE_C_FLAGS=-fPIC -DCMAKE_CXX_FLAGS=-fPIC
 cmake --build build-$PLATFORM
 echo "PWD: $PWD"
 echo "DIST: $DIST"
 cmake --install build-$PLATFORM --prefix $DIST
-if [ -e $DIST/lib/librtmidi.7.0.0.dylib ]; then
-    mv $DIST/lib/librtmidi.7.0.0.dylib $DIST/lib/librtmidi.7.dylib # un-symlink
-else
-    mv $DIST/lib/librtmidi.so.7.0.0 $DIST/lib/librtmidi.so # un-symlink
-fi
 
 popd
