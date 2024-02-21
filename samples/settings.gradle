@@ -1,0 +1,4 @@
+rootProject.name = 'rtmidi-javacpp-samples'
+include ':app'
+
+gradle.rootProject { ext.javacppVersion = '1.5.9' }

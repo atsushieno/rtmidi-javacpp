@@ -1,6 +1,4 @@
 rootProject.name = 'rtmidi-javacpp'
 include ':rtmidi-javacpp'
-include ':samples-app'
 
 gradle.rootProject { ext.javacppVersion = '1.5.9' }
-project(':samples-app').projectDir = new File('samples/app')

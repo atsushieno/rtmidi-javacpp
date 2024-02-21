@@ -1,7 +1,10 @@
 plugins {
-    id 'application'
-    id 'org.bytedeco.gradle-javacpp-platform'
+    id 'java-library'
+    id 'org.bytedeco.gradle-javacpp-platform' version '1.5.8'
 }
+
+group = 'dev.atsushieno'
+version = '0.1.0'
 
 repositories {
     mavenLocal()
@@ -17,17 +20,17 @@ ext {
 }
 
 dependencies {
-    implementation "dev.atsushieno:rtmidi-javacpp-platform:+"
+    api "dev.atsushieno:rtmidi-javacpp-platform:0.1.0"
     testImplementation 'junit:junit:4.13.2'
 }
 
-mainClassName = "dev.atsushieno.rtmidi_javacpp_app.Main"
-
+/*
 // Let's create a standalone "uber JAR" to see what we get in it
 jar {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE // allow duplicates
-    manifest.attributes "Main-Class": "dev.atsushieno.rtmidi_javacpp_app.Main"
+    manifest.attributes "Main-Class": "org.bytedeco.javacv.samples.Demo"
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
+*/
