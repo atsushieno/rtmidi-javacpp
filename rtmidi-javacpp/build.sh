@@ -15,7 +15,7 @@ if [ ! -f .patch.stamp ] ; then
     patch -i ../../workaround-javacpp-code-generator-issue.patch -p1
     touch .patch.stamp
 fi
-cmake -B build-$PLATFORM -DBUILD_SHARED_LIBS=false
+cmake -B build-$PLATFORM -DBUILD_SHARED_LIBS=false -DCMAKE_C_FLAGS=-fPIC -DCMAKE_CXX_FLAGS=-fPIC
 cmake --build build-$PLATFORM
 echo "PWD: $PWD"
 echo "DIST: $DIST"
