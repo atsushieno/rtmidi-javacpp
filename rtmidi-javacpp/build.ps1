@@ -1,5 +1,5 @@
 
-$PLATFORM = $Env:PLATFORM
+$PLATFORM = "$Env:PLATFORM"
 New-Item -ItemType Directory -Force -Path "build\$PLATFORM"
 Set-Location "build\$PLATFORM"
 
