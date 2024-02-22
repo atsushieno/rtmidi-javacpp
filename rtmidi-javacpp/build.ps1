@@ -17,7 +17,7 @@ if (-not (Test-Path .patch.stamp)) {
     patch -i $ScriptDir\..\workaround-javacpp-code-generator-issue.patch -p1
     New-Item -ItemType File -Name .patch.stamp
 }
-cmake -B "build-$PLATFORM" -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=false -G "NMake Makefiles"
+cmake -B "build-$PLATFORM" -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=false -G Ninja
 cmake --build "build-$PLATFORM"
 
 #cmake --install "build-$PLATFORM" --prefix $DIST
