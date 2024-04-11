@@ -1,4 +1,4 @@
 rootProject.name = 'rtmidi-javacpp'
 include ':rtmidi-javacpp'
 
-gradle.rootProject { ext.javacppVersion = '1.5.9' }
+gradle.rootProject { ext.javacppVersion = '1.5.10' }
